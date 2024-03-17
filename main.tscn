@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://baqcw4xyha3w4"]
+
+[ext_resource type="Script" path="res://Logic.cs" id="1_2lwc4"]
+[ext_resource type="Script" path="res://StartButton.cs" id="2_puv5q"]
+[ext_resource type="Script" path="res://StopButton.cs" id="4_lh7px"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2lwc4")
+executeColor = Color(0.294118, 0.654902, 0.419608, 1)
+restColor = Color(0.792157, 0.0980392, 0.329412, 1)
+
+[node name="JSONField" type="TextEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.3
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_bottom = -10.0
+grow_vertical = 2
+text = "{
+    \"name\": \"Hangboarding\",
+    \"specifications\": [{
+		\"duration\": 4,
+        \"repetitions\": 5,
+        \"rest\": 12
+    }]
+}"
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 371.0
+offset_top = 25.0
+offset_right = 421.0
+offset_bottom = 56.0
+text = "startholder"
+script = ExtResource("2_puv5q")
+startText = "Start!"
+pauseText = "Pause..."
+continueText = "Here we go again!"
+
+[node name="StopButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 370.0
+offset_top = 78.0
+offset_right = 466.0
+offset_bottom = 109.0
+disabled = true
+text = "Stop *sigh*"
+script = ExtResource("4_lh7px")
+text = "Stop *sigh*"
+
+[connection signal="pressed" from="StartButton" to="StartButton" method="OnPressed"]
+[connection signal="pressed" from="StopButton" to="StopButton" method="OnPressed"]
