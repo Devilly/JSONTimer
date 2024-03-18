@@ -39,21 +39,10 @@ public partial class Logic : Control
 	[Signal]
 	public delegate void StopActivityEventHandler();
 
-	[Export]
-	public Color executeColor;
-
-	[Export]
-	public Color restColor;
-
-	private float activityArc = 0;
-	private Color activityColor;
-
-	private Tween currentTween;
+	private IList<Action> actions;
 
     public void Start()
     {
-		EmitSignal(SignalName.StartActivity);
-
 		var serializeOptions = new JsonSerializerOptions
 		{
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -62,7 +51,7 @@ public partial class Logic : Control
 		var jsonField = GetNode<TextEdit>("%JSONField");	
 		var activity = JsonSerializer.Deserialize<Activity>(jsonField.Text, serializeOptions);
 
-		var actions = new List<Action>();
+		actions = new List<Action>();
 		foreach (Specification specification in activity.Specifications) {
 			foreach (var index in Enumerable.Range(1, specification.Repetitions)) {
 				actions.Add(new() {
@@ -81,63 +70,20 @@ public partial class Logic : Control
 			}
 		}
 
-		ExecuteAction(actions, 0);
+		EmitSignal(SignalName.StartActivity);
     }
+
+	public IList<Action> Actions => actions;
 
 	public void Pause() {
 		EmitSignal(SignalName.PauseActivity);
-
-		currentTween.Pause();
 	}
 
 	public void Resume() {
 		EmitSignal(SignalName.ResumeActivity);
-
-		currentTween.Play();
 	}
 
 	public void Stop() {
 		EmitSignal(SignalName.StopActivity);
-
-		currentTween.Kill();
 	}
-
-	private void ExecuteAction(IList<Action> actions, int executionIndex) {
-		var action = actions[executionIndex];
-
-		float fromAngle, toAngle;
-
-		if(action.Type == ActionType.Execute) {
-			fromAngle = 0f;
-			toAngle = 2 * MathF.PI;
-
-			activityColor = executeColor;
-		} else {
-			fromAngle = 2 * MathF.PI;
-			toAngle = 0f;
-
-			activityColor = restColor;
-		}
-
-		currentTween = CreateTween();
-		currentTween.TweenMethod(Callable.From((float value) => {
-			activityArc = value;
-		}), fromAngle, toAngle, action.Duration);
-
-		currentTween.Finished += () => {
-			if(executionIndex < actions.Count - 1) {
-				ExecuteAction(actions, executionIndex + 1);
-			}
-		};
-	}
-
-    public override void _Process(double delta)
-	{
-		QueueRedraw();
-	}
-
-	public override void _Draw()
-    {
-		DrawArc(new(800, 300), 100, 0, activityArc, 360, activityColor, 10, true);
-    }
 }
