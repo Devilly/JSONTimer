@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://baqcw4xyha3w4"]
+[gd_scene load_steps=7 format=3 uid="uid://baqcw4xyha3w4"]
 
 [ext_resource type="Script" path="res://Logic.cs" id="1_2lwc4"]
 [ext_resource type="Script" path="res://StartButton.cs" id="2_puv5q"]
 [ext_resource type="Script" path="res://TimeIndicator.cs" id="4_d82h6"]
 [ext_resource type="Script" path="res://StopButton.cs" id="4_lh7px"]
 [ext_resource type="AudioStream" uid="uid://wbdlew8pic62" path="res://beep.wav" id="4_yxwbs"]
+[ext_resource type="AudioStream" uid="uid://blqnp5inpc6q6" path="res://jump.wav" id="6_0r0xm"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -29,7 +30,7 @@ grow_vertical = 2
 text = "{
     \"name\": \"Hangboarding\",
     \"specifications\": [{
-		\"duration\": 4,
+		\"duration\": 7,
         \"repetitions\": 5,
         \"rest\": 12
     }]
@@ -70,10 +71,14 @@ script = ExtResource("4_d82h6")
 executeColor = Color(0.294118, 0.654902, 0.419608, 1)
 restColor = Color(0.792157, 0.0980392, 0.329412, 1)
 
-[node name="NotificationAudio" type="AudioStreamPlayer" parent="."]
+[node name="UpdateAudio" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("4_yxwbs")
 volume_db = 1.0
+
+[node name="StartAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_0r0xm")
 
 [connection signal="pressed" from="StartButton" to="StartButton" method="OnPressed"]
 [connection signal="pressed" from="StopButton" to="StopButton" method="OnPressed"]

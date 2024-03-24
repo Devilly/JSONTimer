@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public partial class TimeIndicator : Control
 {
@@ -74,11 +75,31 @@ public partial class TimeIndicator : Control
 		currentTween.Finished += () => {
 			if(executionIndex < actions.Count - 1) {
 				ExecuteAction(actions, executionIndex + 1);
-				
-				var notificationAudio = GetNode<AudioStreamPlayer>("%NotificationAudio");
-				notificationAudio.Play();
 			}
 		};
+
+		PlanUpdateSound(action, 2);
+		PlanUpdateSound(action, 1);
+
+		PlanStartSound(action);
+	}
+
+	private async void PlanUpdateSound(Action action, int reverseIndex) {
+		var audio = GetNode<AudioStreamPlayer>("%UpdateAudio");
+		var audioLength = audio.Stream.GetLength();
+
+		await ToSignal(GetTree().CreateTimer(action.Duration - (reverseIndex * (audioLength + .5) * 2)), SceneTreeTimer.SignalName.Timeout);
+		
+		audio.Play();
+	}
+
+	private async void PlanStartSound(Action action) {
+		var audio = GetNode<AudioStreamPlayer>("%StartAudio");		
+		var audioLength = audio.Stream.GetLength();
+
+		await ToSignal(GetTree().CreateTimer(action.Duration - (audioLength / 2)), SceneTreeTimer.SignalName.Timeout);
+		
+		audio.Play();
 	}
 	
 	public override void _Process(double delta)
