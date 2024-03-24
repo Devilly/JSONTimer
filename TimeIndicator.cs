@@ -50,7 +50,7 @@ public partial class TimeIndicator : Control
 		currentTween.Kill();
 	}
 
-	private void ExecuteAction(IList<Action> actions, int executionIndex) {
+	private async void ExecuteAction(IList<Action> actions, int executionIndex) {
 		var action = actions[executionIndex];
 
 		float fromAngle, toAngle;
@@ -60,6 +60,11 @@ public partial class TimeIndicator : Control
 			toAngle = 2 * MathF.PI;
 
 			activityColor = executeColor;
+
+			await PlayStartSound();
+
+			PlanUpdateSound(action, 2);
+			PlanUpdateSound(action, 1);
 		} else {
 			fromAngle = 2 * MathF.PI;
 			toAngle = 0f;
@@ -72,16 +77,22 @@ public partial class TimeIndicator : Control
 			activityArc = value;
 		}), fromAngle, toAngle, action.Duration);
 
-		currentTween.Finished += () => {
+		currentTween.Finished += async () => {
 			if(executionIndex < actions.Count - 1) {
+				if(action.Type == ActionType.Execute) {
+					await PlayEndSound();
+				}
+				
 				ExecuteAction(actions, executionIndex + 1);
 			}
 		};
+	}
 
-		PlanUpdateSound(action, 2);
-		PlanUpdateSound(action, 1);
+	private async Task PlayStartSound() {
+		var audio = GetNode<AudioStreamPlayer>("%StartAudio");
+		audio.Play();
 
-		PlanStartSound(action);
+		await ToSignal(audio, AudioStreamPlayer.SignalName.Finished);
 	}
 
 	private async void PlanUpdateSound(Action action, int reverseIndex) {
@@ -93,13 +104,11 @@ public partial class TimeIndicator : Control
 		audio.Play();
 	}
 
-	private async void PlanStartSound(Action action) {
-		var audio = GetNode<AudioStreamPlayer>("%StartAudio");		
-		var audioLength = audio.Stream.GetLength();
-
-		await ToSignal(GetTree().CreateTimer(action.Duration - (audioLength / 2)), SceneTreeTimer.SignalName.Timeout);
-		
+	private async Task PlayEndSound() {
+		var audio = GetNode<AudioStreamPlayer>("%EndAudio");
 		audio.Play();
+
+		await ToSignal(audio, AudioStreamPlayer.SignalName.Finished);
 	}
 	
 	public override void _Process(double delta)

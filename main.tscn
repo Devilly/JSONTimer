@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://baqcw4xyha3w4"]
+[gd_scene load_steps=8 format=3 uid="uid://baqcw4xyha3w4"]
 
 [ext_resource type="Script" path="res://Logic.cs" id="1_2lwc4"]
 [ext_resource type="Script" path="res://StartButton.cs" id="2_puv5q"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://StopButton.cs" id="4_lh7px"]
 [ext_resource type="AudioStream" uid="uid://wbdlew8pic62" path="res://beep.wav" id="4_yxwbs"]
 [ext_resource type="AudioStream" uid="uid://blqnp5inpc6q6" path="res://jump.wav" id="6_0r0xm"]
+[ext_resource type="AudioStream" uid="uid://bmnvf36vumgoe" path="res://power-up.wav" id="6_j01d8"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -79,6 +80,10 @@ volume_db = 1.0
 [node name="StartAudio" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("6_0r0xm")
+
+[node name="EndAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_j01d8")
 
 [connection signal="pressed" from="StartButton" to="StartButton" method="OnPressed"]
 [connection signal="pressed" from="StopButton" to="StopButton" method="OnPressed"]
