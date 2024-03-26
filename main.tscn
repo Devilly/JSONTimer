@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://baqcw4xyha3w4"]
+[gd_scene load_steps=9 format=3 uid="uid://baqcw4xyha3w4"]
 
 [ext_resource type="Script" path="res://Logic.cs" id="1_2lwc4"]
 [ext_resource type="Script" path="res://StartButton.cs" id="2_puv5q"]
 [ext_resource type="Script" path="res://TimeIndicator.cs" id="4_d82h6"]
 [ext_resource type="Script" path="res://StopButton.cs" id="4_lh7px"]
 [ext_resource type="AudioStream" uid="uid://wbdlew8pic62" path="res://beep.wav" id="4_yxwbs"]
+[ext_resource type="Script" path="res://CenterTextLabel.cs" id="5_n8jkx"]
 [ext_resource type="AudioStream" uid="uid://blqnp5inpc6q6" path="res://jump.wav" id="6_0r0xm"]
 [ext_resource type="AudioStream" uid="uid://bmnvf36vumgoe" path="res://power-up.wav" id="6_j01d8"]
 
@@ -88,6 +89,7 @@ grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
 autowrap_mode = 0
+script = ExtResource("5_n8jkx")
 
 [node name="UpdateAudio" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true

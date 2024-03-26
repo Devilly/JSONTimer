@@ -19,12 +19,12 @@ public partial class TimeIndicator : Control
 
 	private Logic logic;
 
-	private RichTextLabel centerTextLabel;
+	private CenterTextLabel centerTextLabel;
 
 	public override void _Ready()
 	{
 		logic = GetParent<Logic>();
-		centerTextLabel = GetChild<RichTextLabel>(0);
+		centerTextLabel = GetChild<CenterTextLabel>(0);
 
 		logic.StartActivity += OnStartActivity;
 		logic.PauseActivity += OnPauseActivity;
@@ -34,11 +34,11 @@ public partial class TimeIndicator : Control
 
 	public async void OnStartActivity()
 	{
-		centerTextLabel.Text = "[center]3";
+		centerTextLabel.Text = "3";
 		await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
-		centerTextLabel.Text = "[center]2";
+		centerTextLabel.Text = "2";
 		await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
-		centerTextLabel.Text = "[center]1";
+		centerTextLabel.Text = "1";
 		await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
 
 		ExecuteAction(logic.Actions, 0);
@@ -65,12 +65,13 @@ public partial class TimeIndicator : Control
 
 		float fromAngle, toAngle;
 
+		centerTextLabel.Text = action.Name;
+
 		if(action.Type == ActionType.Execute) {
 			fromAngle = 0f;
 			toAngle = 2 * MathF.PI;
 
 			activityColor = executeColor;
-			centerTextLabel.Text = action.Name;
 
 			await PlayStartSound();
 

@@ -57,7 +57,7 @@ public partial class Logic : Control
 		foreach (Specification specification in activity.Specifications) {
 			foreach (var index in Enumerable.Range(1, specification.Repetitions)) {
 				actions.Add(new() {
-					Name = "[center]" + specification.Name,
+					Name = specification.Name,
 					Type = ActionType.Execute,
 					Duration = specification.Duration
 				});
@@ -67,7 +67,7 @@ public partial class Logic : Control
 				}
 
 				actions.Add(new() {
-					Name = "[center]" + specification.Name,
+					Name = specification.Name,
 					Type = ActionType.Rest,
 					Duration = specification.Rest
 				});
