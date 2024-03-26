@@ -10,6 +10,7 @@ public readonly struct Activity {
 }
 
 public readonly struct Specification {
+	public string Name { get; init; }
 	public int Repetitions { get; init; }
 	public int Duration { get; init; }
 	public int Rest { get; init; }
@@ -21,6 +22,7 @@ public enum ActionType {
 }
 
 public struct Action {
+	public string Name;
 	public ActionType Type;
 	public int Duration;
 }
@@ -55,6 +57,7 @@ public partial class Logic : Control
 		foreach (Specification specification in activity.Specifications) {
 			foreach (var index in Enumerable.Range(1, specification.Repetitions)) {
 				actions.Add(new() {
+					Name = "[center]" + specification.Name,
 					Type = ActionType.Execute,
 					Duration = specification.Duration
 				});
@@ -64,6 +67,7 @@ public partial class Logic : Control
 				}
 
 				actions.Add(new() {
+					Name = "[center]" + specification.Name,
 					Type = ActionType.Rest,
 					Duration = specification.Rest
 				});
