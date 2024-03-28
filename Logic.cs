@@ -3,29 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-
-public readonly struct Activity {
-	public string Name { get; init; }
-	public IList<Specification> Specifications { get; init; }
-}
-
-public readonly struct Specification {
-	public string Name { get; init; }
-	public int Repetitions { get; init; }
-	public int Duration { get; init; }
-	public int Rest { get; init; }
-}
-
-public enum ActionType {
-	Execute,
-	Rest
-}
-
-public struct Action {
-	public string Name;
-	public ActionType Type;
-	public int Duration;
-}
+using System.Text.Json.Serialization;
 
 public partial class Logic : Control
 {
@@ -47,18 +25,28 @@ public partial class Logic : Control
     {
 		var serializeOptions = new JsonSerializerOptions
 		{
-			PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+			ReadCommentHandling = JsonCommentHandling.Skip,
+			Converters = {
+				new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
+			}
 		};
 
-		var jsonField = GetNode<TextEdit>("%JSONField");	
-		var activity = JsonSerializer.Deserialize<Activity>(jsonField.Text, serializeOptions);
+		using var file = FileAccess.Open("training.json", FileAccess.ModeFlags.Read);
+    	string json = file.GetAsText();
+
+		var activity = JsonSerializer.Deserialize<Activity>(json, serializeOptions);
 
 		actions = new List<Action>();
 		foreach (Specification specification in activity.Specifications) {
 			foreach (var index in Enumerable.Range(1, specification.Repetitions)) {
 				actions.Add(new() {
 					Name = specification.Name,
-					Type = ActionType.Execute,
+					Type = specification.Type switch
+					{
+						SpecificationType.Exercise => ActionType.Exercise,
+						SpecificationType.Rest => ActionType.Rest
+					},
 					Duration = specification.Duration
 				});
 				

@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://TimeIndicator.cs" id="4_d82h6"]
 [ext_resource type="Script" path="res://StopButton.cs" id="4_lh7px"]
 [ext_resource type="AudioStream" uid="uid://wbdlew8pic62" path="res://beep.wav" id="4_yxwbs"]
-[ext_resource type="Script" path="res://CenterTextLabel.cs" id="5_n8jkx"]
+[ext_resource type="Script" path="res://TextLabel.cs" id="5_n8jkx"]
 [ext_resource type="AudioStream" uid="uid://blqnp5inpc6q6" path="res://jump.wav" id="6_0r0xm"]
 [ext_resource type="AudioStream" uid="uid://bmnvf36vumgoe" path="res://power-up.wav" id="6_j01d8"]
 
@@ -17,27 +17,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2lwc4")
-
-[node name="JSONField" type="TextEdit" parent="."]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -339.0
-grow_horizontal = 0
-grow_vertical = 2
-text = "{
-    \"name\": \"Hangboarding\",
-    \"specifications\": [{
-		\"name\": \"Jugs, hang\",
-		\"duration\": 7,
-        \"repetitions\": 5,
-        \"rest\": 12
-    }]
-}"
 
 [node name="StartButton" type="Button" parent="."]
 layout_mode = 1
@@ -74,7 +53,7 @@ script = ExtResource("4_d82h6")
 executeColor = Color(0.294118, 0.654902, 0.419608, 1)
 restColor = Color(0.792157, 0.0980392, 0.329412, 1)
 
-[node name="CenterTextLabel" type="RichTextLabel" parent="TimeIndicator"]
+[node name="SuperText" type="RichTextLabel" parent="TimeIndicator"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -82,13 +61,50 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -71.0
-offset_top = -12.0
+offset_top = -56.0
 offset_right = 71.0
-offset_bottom = 12.0
+offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 2
-bbcode_enabled = true
+theme_override_font_sizes/normal_font_size = 20
+text = "	"
+fit_content = true
+script = ExtResource("5_n8jkx")
+
+[node name="MainText" type="RichTextLabel" parent="TimeIndicator"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -71.0
+offset_top = -19.0
+offset_right = 71.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 30
+fit_content = true
 autowrap_mode = 0
+script = ExtResource("5_n8jkx")
+
+[node name="SubText" type="RichTextLabel" parent="TimeIndicator"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -71.0
+offset_top = 31.0
+offset_right = 71.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 12
+text = "	"
+fit_content = true
 script = ExtResource("5_n8jkx")
 
 [node name="UpdateAudio" type="AudioStreamPlayer" parent="."]
