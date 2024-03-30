@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://baqcw4xyha3w4"]
+[gd_scene load_steps=10 format=3 uid="uid://baqcw4xyha3w4"]
 
 [ext_resource type="Script" path="res://Logic.cs" id="1_2lwc4"]
-[ext_resource type="Script" path="res://StartButton.cs" id="2_puv5q"]
 [ext_resource type="Script" path="res://TimeIndicator.cs" id="4_d82h6"]
-[ext_resource type="Script" path="res://StopButton.cs" id="4_lh7px"]
 [ext_resource type="AudioStream" uid="uid://wbdlew8pic62" path="res://beep.wav" id="4_yxwbs"]
 [ext_resource type="Script" path="res://TextLabel.cs" id="5_n8jkx"]
 [ext_resource type="AudioStream" uid="uid://blqnp5inpc6q6" path="res://jump.wav" id="6_0r0xm"]
 [ext_resource type="AudioStream" uid="uid://bmnvf36vumgoe" path="res://power-up.wav" id="6_j01d8"]
+[ext_resource type="Texture2D" uid="uid://dj1872l0cbhrc" path="res://play-hover.svg" id="8_lv8re"]
+[ext_resource type="Script" path="res://InteractionButton.cs" id="8_m20w7"]
+[ext_resource type="Texture2D" uid="uid://cw4twf2oh4dev" path="res://play.svg" id="10_v5mfo"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -18,28 +19,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2lwc4")
 
-[node name="StartButton" type="Button" parent="."]
-layout_mode = 1
-offset_left = 18.0
-offset_top = 19.0
-offset_right = 114.0
-offset_bottom = 50.0
-text = "startholder"
-script = ExtResource("2_puv5q")
-startText = "Start!"
-pauseText = "Pause..."
-continueText = "Here we go again!"
-
-[node name="StopButton" type="Button" parent="."]
-layout_mode = 1
-offset_left = 18.0
-offset_top = 65.0
-offset_right = 114.0
-offset_bottom = 96.0
-disabled = true
-text = "Stop *sigh*"
-script = ExtResource("4_lh7px")
-
 [node name="TimeIndicator" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -47,6 +26,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_top = -49.0
+offset_bottom = -49.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_d82h6")
@@ -121,5 +102,14 @@ stream = ExtResource("6_0r0xm")
 unique_name_in_owner = true
 stream = ExtResource("6_j01d8")
 
-[connection signal="pressed" from="StartButton" to="StartButton" method="OnPressed"]
-[connection signal="pressed" from="StopButton" to="StopButton" method="OnPressed"]
+[node name="InteractionButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 305.0
+offset_right = 215.0
+offset_bottom = 368.0
+texture_normal = ExtResource("10_v5mfo")
+texture_hover = ExtResource("8_lv8re")
+script = ExtResource("8_m20w7")
+
+[connection signal="pressed" from="InteractionButton" to="InteractionButton" method="OnPressed"]
