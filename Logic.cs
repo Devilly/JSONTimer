@@ -45,7 +45,7 @@ public partial class Logic : Control
 					Type = specification.Type switch
 					{
 						SpecificationType.Exercise => ActionType.Exercise,
-						SpecificationType.Rest => ActionType.Rest
+						SpecificationType.Recuperate => ActionType.Recuperate
 					},
 					Duration = specification.Duration
 				});
@@ -55,7 +55,7 @@ public partial class Logic : Control
 				}
 
 				actions.Add(new() {
-					Name = specification.Name,
+					Name = specification.RestName,
 					Type = ActionType.Rest,
 					Duration = specification.Rest
 				});

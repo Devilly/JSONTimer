@@ -52,6 +52,7 @@ grow_vertical = 2
 script = ExtResource("4_d82h6")
 executeColor = Color(0.294118, 0.654902, 0.419608, 1)
 restColor = Color(0.792157, 0.0980392, 0.329412, 1)
+recuperateColor = Color(0.627451, 0.392157, 0.870588, 1)
 
 [node name="SuperText" type="RichTextLabel" parent="TimeIndicator"]
 layout_mode = 1

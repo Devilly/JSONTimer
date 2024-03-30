@@ -13,6 +13,9 @@ public partial class TimeIndicator : Control
 	[Export]
 	public Color restColor;
 
+	[Export]
+	public Color recuperateColor;
+
 	private float tweenValue;
 	private Color activityColor;
 
@@ -106,8 +109,11 @@ public partial class TimeIndicator : Control
 			fromAngle = 2 * MathF.PI;
 			toAngle = 0f;
 
-			activityColor = restColor;
-		}
+			activityColor = action.Type switch {
+				ActionType.Rest => restColor,
+				ActionType.Recuperate => recuperateColor
+			};
+		}		
 
 		currentTween = CreateTween();
 		currentTween.TweenMethod(Callable.From((float value) =>
