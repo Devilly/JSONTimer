@@ -16,9 +16,6 @@ public partial class Logic : Control
 	[Signal]
 	public delegate void ResumeActivityEventHandler();
 
-	[Signal]
-	public delegate void StopActivityEventHandler();
-
 	private IList<Action> actions;
 
     public void Start()
@@ -68,14 +65,14 @@ public partial class Logic : Control
 	public IList<Action> Actions => actions;
 
 	public void Pause() {
+		GetTree().Paused = true;
+
 		EmitSignal(SignalName.PauseActivity);
 	}
 
 	public void Resume() {
-		EmitSignal(SignalName.ResumeActivity);
-	}
+		GetTree().Paused = false;
 
-	public void Stop() {
-		EmitSignal(SignalName.StopActivity);
+		EmitSignal(SignalName.ResumeActivity);
 	}
 }

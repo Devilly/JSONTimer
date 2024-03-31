@@ -6,8 +6,8 @@
 [ext_resource type="Script" path="res://TextLabel.cs" id="5_n8jkx"]
 [ext_resource type="AudioStream" uid="uid://blqnp5inpc6q6" path="res://jump.wav" id="6_0r0xm"]
 [ext_resource type="AudioStream" uid="uid://bmnvf36vumgoe" path="res://power-up.wav" id="6_j01d8"]
-[ext_resource type="Texture2D" uid="uid://dj1872l0cbhrc" path="res://play-hover.svg" id="8_lv8re"]
 [ext_resource type="Script" path="res://InteractionButton.cs" id="8_m20w7"]
+[ext_resource type="Texture2D" uid="uid://d0agc6aj2dvth" path="res://pause.svg" id="9_y7j8h"]
 [ext_resource type="Texture2D" uid="uid://cw4twf2oh4dev" path="res://play.svg" id="10_v5mfo"]
 
 [node name="Control" type="Control"]
@@ -103,13 +103,14 @@ unique_name_in_owner = true
 stream = ExtResource("6_j01d8")
 
 [node name="InteractionButton" type="TextureButton" parent="."]
+process_mode = 3
 layout_mode = 0
 offset_left = 160.0
 offset_top = 305.0
 offset_right = 215.0
 offset_bottom = 368.0
-texture_normal = ExtResource("10_v5mfo")
-texture_hover = ExtResource("8_lv8re")
 script = ExtResource("8_m20w7")
+startImage = ExtResource("10_v5mfo")
+pauseImage = ExtResource("9_y7j8h")
 
 [connection signal="pressed" from="InteractionButton" to="InteractionButton" method="OnPressed"]

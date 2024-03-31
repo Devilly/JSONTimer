@@ -35,36 +35,18 @@ public partial class TimeIndicator : Control
 		subText = GetNode<TextLabel>("SubText");
 
 		logic.StartActivity += OnStartActivity;
-		logic.PauseActivity += OnPauseActivity;
-		logic.ResumeActivity += OnResumeActivity;
-		logic.StopActivity += OnStopActivity;
 	}
 
 	public async void OnStartActivity()
 	{
 		mainText.Text = "3";
-		await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
+		await ToSignal(GetTree().CreateTimer(1, false), SceneTreeTimer.SignalName.Timeout);
 		mainText.Text = "2";
-		await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
+		await ToSignal(GetTree().CreateTimer(1, false), SceneTreeTimer.SignalName.Timeout);
 		mainText.Text = "1";
-		await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
+		await ToSignal(GetTree().CreateTimer(1, false), SceneTreeTimer.SignalName.Timeout);
 
 		ExecuteAction(logic.Actions, 0);
-	}
-
-	public void OnPauseActivity()
-	{
-		currentTween.Pause();
-	}
-
-	public void OnResumeActivity()
-	{
-		currentTween.Play();
-	}
-
-	public void OnStopActivity()
-	{
-		Reset();
 	}
 
 	private void Reset()
@@ -153,7 +135,7 @@ public partial class TimeIndicator : Control
 		var audio = GetNode<AudioStreamPlayer>("%UpdateAudio");
 		var audioLength = audio.Stream.GetLength();
 
-		await ToSignal(GetTree().CreateTimer(action.Duration - (reverseIndex * (audioLength + .5) * 2)), SceneTreeTimer.SignalName.Timeout);
+		await ToSignal(GetTree().CreateTimer(action.Duration - (reverseIndex * (audioLength + .5) * 2), false), SceneTreeTimer.SignalName.Timeout);
 
 		audio.Play();
 	}
