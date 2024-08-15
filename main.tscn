@@ -1,14 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://baqcw4xyha3w4"]
+[gd_scene load_steps=8 format=3 uid="uid://baqcw4xyha3w4"]
 
-[ext_resource type="Script" path="res://Logic.cs" id="1_2lwc4"]
-[ext_resource type="Script" path="res://TimeIndicator.cs" id="4_d82h6"]
-[ext_resource type="AudioStream" uid="uid://wbdlew8pic62" path="res://beep.wav" id="4_yxwbs"]
-[ext_resource type="Script" path="res://TextLabel.cs" id="5_n8jkx"]
-[ext_resource type="AudioStream" uid="uid://blqnp5inpc6q6" path="res://jump.wav" id="6_0r0xm"]
-[ext_resource type="AudioStream" uid="uid://bmnvf36vumgoe" path="res://power-up.wav" id="6_j01d8"]
-[ext_resource type="Script" path="res://InteractionButton.cs" id="8_m20w7"]
-[ext_resource type="Texture2D" uid="uid://d0agc6aj2dvth" path="res://pause.svg" id="9_y7j8h"]
-[ext_resource type="Texture2D" uid="uid://cw4twf2oh4dev" path="res://play.svg" id="10_v5mfo"]
+[ext_resource type="Script" path="res://src/Logic.cs" id="1_7x4ji"]
+[ext_resource type="Script" path="res://src/TimeIndicator.cs" id="2_skefg"]
+[ext_resource type="Script" path="res://src/TextLabel.cs" id="3_snigj"]
+[ext_resource type="AudioStream" uid="uid://wbdlew8pic62" path="res://media/soundBeforeEnd.wav" id="4_a5t80"]
+[ext_resource type="AudioStream" uid="uid://blqnp5inpc6q6" path="res://media/soundAtStart.wav" id="5_gl0tk"]
+[ext_resource type="AudioStream" uid="uid://bmnvf36vumgoe" path="res://media/soundAtEnd.wav" id="6_uh6oo"]
+[ext_resource type="Script" path="res://src/InteractionButton.cs" id="7_23s75"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -17,7 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_2lwc4")
+script = ExtResource("1_7x4ji")
 
 [node name="TimeIndicator" type="Control" parent="."]
 layout_mode = 1
@@ -30,7 +28,7 @@ offset_top = -49.0
 offset_bottom = -49.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("4_d82h6")
+script = ExtResource("2_skefg")
 executeColor = Color(0.294118, 0.654902, 0.419608, 1)
 restColor = Color(0.792157, 0.0980392, 0.329412, 1)
 recuperateColor = Color(0.627451, 0.392157, 0.870588, 1)
@@ -51,7 +49,7 @@ grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 20
 text = "	"
 fit_content = true
-script = ExtResource("5_n8jkx")
+script = ExtResource("3_snigj")
 
 [node name="MainText" type="RichTextLabel" parent="TimeIndicator"]
 layout_mode = 1
@@ -69,7 +67,7 @@ grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 30
 fit_content = true
 autowrap_mode = 0
-script = ExtResource("5_n8jkx")
+script = ExtResource("3_snigj")
 
 [node name="SubText" type="RichTextLabel" parent="TimeIndicator"]
 layout_mode = 1
@@ -87,30 +85,47 @@ grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 12
 text = "	"
 fit_content = true
-script = ExtResource("5_n8jkx")
+script = ExtResource("3_snigj")
 
 [node name="UpdateAudio" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("4_yxwbs")
+stream = ExtResource("4_a5t80")
 volume_db = 1.0
 
 [node name="StartAudio" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("6_0r0xm")
+stream = ExtResource("5_gl0tk")
 
 [node name="EndAudio" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("6_j01d8")
+stream = ExtResource("6_uh6oo")
 
-[node name="InteractionButton" type="TextureButton" parent="."]
+[node name="Button" type="Button" parent="."]
 process_mode = 3
-layout_mode = 0
-offset_left = 160.0
-offset_top = 305.0
-offset_right = 215.0
-offset_bottom = 368.0
-script = ExtResource("8_m20w7")
-startImage = ExtResource("10_v5mfo")
-pauseImage = ExtResource("9_y7j8h")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -105.0
+offset_top = -82.0
+offset_right = 106.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[connection signal="pressed" from="InteractionButton" to="InteractionButton" method="OnPressed"]
+[node name="InteractionText" type="RichTextLabel" parent="Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+fit_content = true
+script = ExtResource("7_23s75")
+
+[connection signal="pressed" from="Button" to="Button/InteractionText" method="OnPressed"]

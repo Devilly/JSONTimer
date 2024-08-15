@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Diagnostics;
 
 public enum InteractionButtonState
 {
@@ -9,21 +7,15 @@ public enum InteractionButtonState
 	PAUSED
 }
 
-public partial class InteractionButton : TextureButton
+public partial class InteractionButton : TextLabel
 {
 	private Logic logic;
 
 	private InteractionButtonState state;
 
-	[Export]
-	public Texture2D startImage;
-
-	[Export]
-	public Texture2D pauseImage;
-
 	public override void _Ready()
 	{
-		logic = GetParent<Logic>();
+		logic = GetParent<Button>().GetParent<Logic>();
 
 		logic.StartActivity += OnStartActivity;
 		logic.PauseActivity += OnPauseActivity;
@@ -50,19 +42,19 @@ public partial class InteractionButton : TextureButton
 	private void SetReadyState()
 	{
 		state = InteractionButtonState.READY;
-		TextureNormal = startImage;
+		Text = "READY";
 	}
 
 	private void SetStartedState()
 	{
 		state = InteractionButtonState.STARTED;
-		TextureNormal = pauseImage;
+		Text = "PAUSE";
 	}
 
 	private void SetPausedState()
 	{
 		state = InteractionButtonState.PAUSED;
-		TextureNormal = startImage;
+		Text = "RESUME";
 	}
 
 	public void OnPressed()
