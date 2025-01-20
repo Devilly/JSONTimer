@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 public partial class TimeIndicator : Control
 {
-
+	
 	[Export]
 	public Color executeColor;
 
@@ -47,16 +47,6 @@ public partial class TimeIndicator : Control
 		await ToSignal(GetTree().CreateTimer(1, false), SceneTreeTimer.SignalName.Timeout);
 
 		ExecuteAction(logic.Actions, 0);
-	}
-
-	private void Reset()
-	{
-		superText.Text = "";
-		mainText.Text = "";
-		subText.Text = "";
-
-		tweenValue = 0f;
-		currentTween.Kill();
 	}
 
 	private async void ExecuteAction(IList<Action> actions, int executionIndex)
@@ -116,7 +106,7 @@ public partial class TimeIndicator : Control
 				{
 					ExecuteAction(actions, executionIndex + 1);
 				} else {
-					Reset();
+					GetTree().Quit();
 				}
 			}
 		};
