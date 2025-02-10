@@ -1,11 +1,8 @@
 using Godot;
-using System;
 
 public partial class GlobalInitialisation : Node
 {
-    private int MagicDpiReferenceValue = 60;
-
-    public static GlobalInitialisation Instance { get; private set; }
+    private int MagicDpiReferenceValue = 96;
 
     public override void _Ready()
     {

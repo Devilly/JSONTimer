@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnvpc7k2fg1ma"]
+
+[ext_resource type="Script" path="res://src/activity-executor/ActivityExecutor.cs" id="1_dd3sw"]
+[ext_resource type="Script" path="res://src/TextLabel.cs" id="2_x8q72"]
+[ext_resource type="AudioStream" uid="uid://wbdlew8pic62" path="res://media/soundBeforeEnd.wav" id="3_7q64j"]
+[ext_resource type="AudioStream" uid="uid://blqnp5inpc6q6" path="res://media/soundAtStart.wav" id="4_1y8ic"]
+[ext_resource type="AudioStream" uid="uid://bmnvf36vumgoe" path="res://media/soundAtEnd.wav" id="5_m3whj"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TimeIndicator" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dd3sw")
+actColor = Color(0, 0.807843, 0, 1)
+restColor = Color(0.886275, 0.698039, 0, 1)
+recuperateColor = Color(0.839216, 0, 0.913725, 1)
+
+[node name="SuperText" type="RichTextLabel" parent="TimeIndicator"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -71.0
+offset_top = -57.0
+offset_right = 71.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 20
+text = "	"
+fit_content = true
+script = ExtResource("2_x8q72")
+
+[node name="MainText" type="RichTextLabel" parent="TimeIndicator"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -71.0
+offset_top = -19.0
+offset_right = 71.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 30
+fit_content = true
+autowrap_mode = 0
+script = ExtResource("2_x8q72")
+
+[node name="SubText" type="RichTextLabel" parent="TimeIndicator"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -71.0
+offset_top = 29.0
+offset_right = 71.0
+offset_bottom = 53.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 12
+text = "	"
+fit_content = true
+script = ExtResource("2_x8q72")
+
+[node name="UpdateAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_7q64j")
+volume_db = 1.0
+
+[node name="StartAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_1y8ic")
+
+[node name="EndAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_m3whj")

@@ -7,7 +7,7 @@
         "request": "launch",
         "preLaunchTask": "build",
         "program": "${env:GODOT4}",
-        "args": ["/Users/dennisvanoosterhout/projects/JSONTimer/training.json"],
+        "args": ["/Users/dennisvanoosterhout/Downloads/training.json"],
         "cwd": "${workspaceFolder}",
         "stopAtEntry": false,
       }

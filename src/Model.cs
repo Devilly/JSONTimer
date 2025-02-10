@@ -7,6 +7,7 @@ public readonly struct Activity {
 
 public enum SpecificationType {
     Exercise,
+	Rest,
     Recuperate
 }
 
@@ -17,16 +18,4 @@ public readonly struct Specification {
 	public int Duration { get; init; }
 	public int Rest { get; init; }
     public string RestName { get; init; }
-}
-
-public enum ActionType {
-	Exercise,
-	Rest,
-    Recuperate
-}
-
-public struct Action {
-	public string Name;
-	public ActionType Type;
-	public int Duration;
 }
